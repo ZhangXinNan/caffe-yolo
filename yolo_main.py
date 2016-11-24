@@ -1,4 +1,9 @@
+#encoding=utf8
+
+import sys
+sys.path.append("/home/zhangxin/github/caffe/python")
 import caffe
+
 GPU_ID = 0 # Switch between 0 and 1 depending on the GPU you want to use.
 caffe.set_mode_gpu()
 caffe.set_device(GPU_ID)
@@ -106,8 +111,9 @@ def show_results(img,results, img_width, img_height):
 			cv2.rectangle(img_cp,(xmin,ymin-20),(xmax,ymin),(125,125,125),-1)
 			cv2.putText(img_cp,results[i][0] + ' : %.2f' % results[i][5],(xmin+5,ymin-7),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1)	
 	if imshow :
-		cv2.imshow('YOLO detection',img_cp)
-		cv2.waitKey(1000)
+		#cv2.imshow('YOLO detection',img_cp)
+		cv2.imwrite("YOLO_detection.jpg", img_cp)
+		#cv2.waitKey(1000)
 
 
 
@@ -149,7 +155,7 @@ def main(argv):
 	img_cv = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 	results = interpret_output(out['result'][0], img.shape[1], img.shape[0]) # fc27 instead of fc12 for yolo_small 
 	show_results(img_cv,results, img.shape[1], img.shape[0])
-	cv2.waitKey(10000)
+	#cv2.waitKey(10000)
 
 
 
